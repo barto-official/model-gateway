@@ -1,3 +1,3 @@
-from .hello import add
+"""Model Gateway package."""
 
-__all__ = ["add"]
+__all__: list[str] = []

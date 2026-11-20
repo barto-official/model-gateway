@@ -92,7 +92,6 @@ model-gateway/
 │   │   ├── adapters/
 │   │   │   ├── inbound/http/       # FastAPI and SSE (later phases)
 │   │   │   └── outbound/config/    # Env and registry loading
-│   │   └── hello.py                # Quickstart doctest helper
 │   └── model_gateway_cli/          # CLI entrypoints and adapter
 ├── docs/                           # MkDocs source
 ├── scripts/                        # Doc generation and repo policy
