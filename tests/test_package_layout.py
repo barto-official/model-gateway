@@ -27,7 +27,7 @@ def test_hexagonal_package_importable(package: str) -> None:
     importlib.import_module(package)
 
 
-def test_create_app_not_implemented_until_phase_0f() -> None:
-    """Composition root remains a stub until Phase 0f."""
-    with pytest.raises(NotImplementedError, match="Phase 0f"):
+def test_create_app_not_implemented() -> None:
+    """create_app() fails clearly when the HTTP stack is not wired."""
+    with pytest.raises(NotImplementedError, match="not configured yet"):
         create_app()

@@ -2,9 +2,9 @@
 
 
 def create_app() -> None:
-    """Build the HTTP application once inbound adapter exists (Phase 0f).
+    """Create and configure the HTTP application.
 
     Raises:
-        NotImplementedError: HTTP wiring is not implemented until Phase 0f.
+        NotImplementedError: When the inbound HTTP adapter is not yet wired.
     """
-    raise NotImplementedError("HTTP app wiring lands in Phase 0f")
+    raise NotImplementedError("HTTP application is not configured yet")
