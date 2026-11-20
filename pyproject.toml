@@ -5,7 +5,7 @@ build-backend = "uv_build"
 [project]
 requires-python = ">=3.12"
 name = "model-gateway"
-version = "0.0.0"
+version = "0.0.1"
 description = "Internal gateway for routing and managing access to LLM and embedding providers."
 readme = "README.md"
 license = "MIT"
