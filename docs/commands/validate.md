@@ -1,13 +1,13 @@
 # Commands
 
-## `my-package validate`
+## `model-gateway validate`
 
 Validate a single contract from a file or stdin.
 
 ### Usage
 
 ```bash
-my-package validate SOURCE [OPTIONS]
+model-gateway validate SOURCE [OPTIONS]
 ```
 
 ### Arguments
@@ -49,45 +49,45 @@ Diagnostics, warnings, progress messages, and debug logs are written to stderr.
 Validate a file:
 
 ```bash
-my-package validate contract.yaml
+model-gateway validate contract.yaml
 ```
 
 Validate and write JSON:
 
 ```bash
-my-package validate contract.yaml --format json > report.json
+model-gateway validate contract.yaml --format json > report.json
 ```
 
 Read from stdin:
 
 ```bash
-cat contract.yaml | my-package validate - --format json
+cat contract.yaml | model-gateway validate - --format json
 ```
 
 Write Markdown report:
 
 ```bash
-my-package validate contract.yaml --format markdown > report.md
+model-gateway validate contract.yaml --format markdown > report.md
 ```
 
 Save diagnostics separately:
 
 ```bash
-my-package validate contract.yaml --format json > report.json 2> debug.log
+model-gateway validate contract.yaml --format json > report.json 2> debug.log
 ```
 
 ______________________________________________________________________
 
 Example for `validate-many`:
 
-## `my-package validate-many`
+## `model-gateway validate-many`
 
 Validate multiple contract files.
 
 ### Usage
 
 ```bash
-my-package validate-many SOURCES... [OPTIONS]
+model-gateway validate-many SOURCES... [OPTIONS]
 ```
 
 ### Arguments
@@ -116,18 +116,18 @@ my-package validate-many SOURCES... [OPTIONS]
 Validate shell-expanded files:
 
 ```bash
-my-package validate-many contracts/*.yaml
+model-gateway validate-many contracts/*.yaml
 ```
 
 Validate recursively using an app-level pattern:
 
 ```bash
-my-package validate-many --pattern "contracts/**/*.yaml"
+model-gateway validate-many --pattern "contracts/**/*.yaml"
 ```
 
 Stream NDJSON and filter failed contracts:
 
 ```bash
-my-package validate-many contracts/*.yaml --format ndjson \
+model-gateway validate-many contracts/*.yaml --format ndjson \
   | jq 'select(.status != "passed")'
 ```

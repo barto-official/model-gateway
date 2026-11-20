@@ -301,13 +301,13 @@ Pull requests and pushes to `main` must pass CI. Before you push, run the same c
 
 * **Tests** — `uv sync --group dev` then `uv run pytest --markdown-docs docs tests` (CI runs this on Python 3.12 and 3.13).
 
-* **Type checking** — `uv sync --group dev` then `uv run mypy src/{MY_PACKAGE}`.
+* **Type checking** — `uv sync --group dev` then `uv run mypy src/model_gateway`.
 
 * **Package build** — `rm -rf dist build *.egg-info && uv build` then `uv run --with twine==6.1.0 twine check --strict dist/*`.
 
 * **Docs site** — Match the docs CI job: sync docs deps, regenerate CLI reference and indexes, then build (set `DISABLE_MKDOCS_2_WARNING=true` if CI does).
   * `uv sync --group docs`
-  * `DISABLE_MKDOCS_2_WARNING=true uv run python scripts/generate_cli_reference.py my_package --check`
+  * `DISABLE_MKDOCS_2_WARNING=true uv run python scripts/generate_cli_reference.py model_gateway --check`
   * `uv run python scripts/generate_index.py`
   * If `docs/architecture/adr/index.md` or `docs/rfc/index.md` changed, commit those updates.
   * `uv run mkdocs build`
@@ -338,7 +338,7 @@ Documentation, apart from  `README.md`, is authored with [Material MkDocs](https
   ```
 - Index for ADRs or RFC files is implemented by `python scripts/generate_index.py` (see `adr-index` in CI and the pre-commit hook).
 
-- **Reference for CLI** is implemented using Typer docs utility in the script `uv run python scripts/generate_cli_reference.py my_package` (assumes structure: `my_package.cli.app`).
+- **Reference for CLI** is implemented using Typer docs utility in the script `uv run python scripts/generate_cli_reference.py model_gateway` (assumes structure: `model_gateway.cli.app`).
 
 - Static checks include:
   - `mdformat` (for settings see [pyproject.toml](./pyproject.toml))
@@ -363,7 +363,7 @@ Documentation, apart from  `README.md`, is authored with [Material MkDocs](https
 ### Hosted documentation and versions
 
 Releases rebuild and publish MkDocs outputs with **Mike → `gh-pages`** (same workflow that publishes wheels). Canonical
-URLs come from `site_url` in `mkdocs.yml` (`https://barto-official.github.io/python-project-template/` today). Material’s
+URLs come from `site_url` in `mkdocs.yml` (`https://barto-official.github.io/model-gateway/` today). Material’s
 Mike integration (`extra.version.provider: mike`) exposes `stable`, `latest`, and per-version selectors.
 
 ### Documentation-related CI gates (`.github/workflows/ci.yml`)
@@ -417,10 +417,10 @@ Automation lives under `.github/workflows/`; keep README/CONTRIBUTING notes alig
 - Installs reproducible tooling with `uv` (`astral-sh/setup-uv`).
 - `tests`: `uv sync --frozen --group dev` then `pytest`including tests on python snippets in documentation across Python `3.12`: `uv run pytest --markdown-docs docs tests on Python 3.12 and 3.13`
   & `3.13`.
-- `type-check`: `mypy` on `src/my_package`.
+- `type-check`: `mypy` on `src/model_gateway`.
 - Packaging + smoke jobs (`package-build`, `artifact-smoke-test`, `sdist-smoke-test`, `editable-install-smoke-test`) run
   `uv build`, `twine check --strict`, wheel/sdist installs, and editable installs using the canonical import name
-  `my_package` with distribution metadata `my-package`.
+  `model_gateway` with distribution metadata `model-gateway`.
 - Documentation + Markdown quality jobs were described earlier (`docs-build`, `link-check-*`).
 - `pre-commit`: mirrors local hooks (`uv sync --frozen --group dev --group docs` + `pre-commit run --all-files`).
 

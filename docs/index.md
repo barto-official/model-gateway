@@ -1,8 +1,7 @@
-# Your Project Documentation
+# Model Gateway
 
 Welcome. This documentation includes:
 
-- Guides
-- API Reference
-
-# Your Project Documentation
+- [Guides](guides/quickstart.md)
+- [Architecture](architecture/index.md)
+- [Reference](reference/index.md)

@@ -844,7 +844,7 @@ wheels = [
 ]
 
 [[package]]
-name = "my-package"
+name = "model-gateway"
 version = "0.0.0"
 source = { editable = "." }
 dependencies = [

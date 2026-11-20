@@ -234,7 +234,7 @@ pytest
 Exercise the public helper API (runs as part of markdown doc tests in CI):
 
 ```python
-from my_package.hello import add
+from model_gateway.hello import add
 
 assert add(2, 3) == 5
 ```

@@ -1,11 +1,11 @@
-# `my_package` CLI
+# `model-gateway` CLI
 
 Print a short acknowledgement (smoke-test friendly).
 
 **Usage**:
 
 ```console
-$ my_package [OPTIONS]
+$ model-gateway [OPTIONS]
 ```
 
 **Options**:

@@ -1,6 +1,6 @@
 # Configuration Guide
 
-`my-package` can be configured using CLI options, environment variables, and configuration files.
+`model-gateway` can be configured using CLI options, environment variables, and configuration files.
 
 Configuration is resolved once at startup and then passed into the application as typed settings.
 
@@ -16,7 +16,7 @@ Example:
 
 ```bash
 CONTRACT_CHECK_OUTPUT_FORMAT=markdown \
-my-package validate contract.yaml --format json
+model-gateway validate contract.yaml --format json
 ```
 
 The final output format is `json` because the CLI option has higher priority than the environment variable.
@@ -32,7 +32,7 @@ CLI options are explicit per-command overrides.
 Example:
 
 ```bash
-my-package validate contract.yaml \
+model-gateway validate contract.yaml \
   --profile prod \
   --format json \
   --strict
@@ -55,25 +55,25 @@ export CONTRACT_CHECK_LOG_LEVEL=debug
 Then run:
 
 ```bash
-my-package validate contract.yaml
+model-gateway validate contract.yaml
 ```
 
 ### 3. Configuration file
 
 Configuration files are useful for durable project or user settings.
 
-By default, `my-package` looks for configuration in:
+By default, `model-gateway` looks for configuration in:
 
 ```text
-./my-package.toml
+./model-gateway.toml
 ./pyproject.toml
-~/.config/my-package/config.toml
+~/.config/model-gateway/config.toml
 ```
 
 A specific config file can be provided with:
 
 ```bash
-my-package --config ./config/prod.toml validate contract.yaml
+model-gateway --config ./config/prod.toml validate contract.yaml
 ```
 
 ### 4. Defaults
@@ -84,7 +84,7 @@ ______________________________________________________________________
 
 ## Example configuration file
 
-`my-package.toml`:
+`model-gateway.toml`:
 
 ```toml
 [default]
@@ -113,12 +113,12 @@ ______________________________________________________________________
 For project-local configuration, you can also use:
 
 ```toml
-[tool.my-package]
+[tool.model-gateway]
 profile = "dev"
 output_format = "json"
 log_level = "info"
 
-[tool.my-package.profiles.dev]
+[tool.model-gateway.profiles.dev]
 workspace_host = "https://dev-workspace.cloud.databricks.com"
 catalog = "dev_catalog"
 schema = "analytics"
@@ -126,7 +126,7 @@ schema = "analytics"
 
 Use `pyproject.toml` when the configuration belongs to the repository.
 
-Use `~/.config/my-package/config.toml` when the configuration belongs to the user.
+Use `~/.config/model-gateway/config.toml` when the configuration belongs to the user.
 
 ______________________________________________________________________
 
@@ -167,7 +167,7 @@ Example:
 ```bash
 CONTRACT_CHECK_PROFILE=prod \
 CONTRACT_CHECK_OUTPUT_FORMAT=json \
-my-package validate contract.yaml
+model-gateway validate contract.yaml
 ```
 
 ______________________________________________________________________
@@ -190,7 +190,7 @@ Example:
 
 ```bash
 export DATABRICKS_TOKEN=...
-my-package validate contract.yaml --profile prod
+model-gateway validate contract.yaml --profile prod
 ```
 
 Secret values are redacted in diagnostics:
@@ -202,8 +202,8 @@ DATABRICKS_TOKEN=********
 They are also redacted in:
 
 ```bash
-my-package config show
-my-package doctor
+model-gateway config show
+model-gateway doctor
 ```
 
 unless explicitly requested.
@@ -217,13 +217,13 @@ ______________________________________________________________________
 Use:
 
 ```bash
-my-package config show
+model-gateway config show
 ```
 
 Show sources:
 
 ```bash
-my-package config show --show-sources
+model-gateway config show --show-sources
 ```
 
 Example output:
@@ -238,7 +238,7 @@ workspace_host    ********   config: profiles.dev.workspace_host
 JSON output:
 
 ```bash
-my-package config show --format json --show-sources
+model-gateway config show --format json --show-sources
 ```
 
 ______________________________________________________________________
@@ -264,7 +264,7 @@ Use project configuration for repository defaults:
 
 ```text
 pyproject.toml
-my-package.toml
+model-gateway.toml
 ```
 
 Use environment variables for runtime/deployment-specific settings:

@@ -21,7 +21,7 @@ permissions:
   id-token: write
 
 env:
-  DIST_NAME: my-package-test-0426
+  DIST_NAME: model-gateway-test-0426
 
 jobs:
   publish-and-verify:
@@ -98,4 +98,4 @@ jobs:
           EXPECT_VERSION: ${{ env.BUILD_VERSION }}
         run: |
           set -euo pipefail
-          .testpypi-venv/bin/python -c "import os; from importlib.metadata import version; import {MY_PACKAGE}; assert version('${{ env.DIST_NAME }}') == os.environ['EXPECT_VERSION']"
+          .testpypi-venv/bin/python -c "import os; from importlib.metadata import version; import model_gateway; assert version('${{ env.DIST_NAME }}') == os.environ['EXPECT_VERSION']"

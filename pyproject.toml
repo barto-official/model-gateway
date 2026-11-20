@@ -4,9 +4,9 @@ build-backend = "uv_build"
 
 [project]
 requires-python = ">=3.12"
-name = "my_package"
+name = "model-gateway"
 version = "0.0.0"
-description = "PROJECT_DESCRIPTION"
+description = "Internal gateway for routing and managing access to LLM and embedding providers."
 readme = "README.md"
 license = "MIT"
 license-files = ["LICENSE"]
@@ -23,10 +23,10 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/yourname/my-package"
-Repository = "https://github.com/yourname/my-package"
-Documentation = "https://barto-official.github.io/python-project-template/"
-Issues = "https://github.com/yourname/my-package/issues"
+Homepage = "https://github.com/barto-official/model-gateway"
+Repository = "https://github.com/barto-official/model-gateway"
+Documentation = "https://barto-official.github.io/model-gateway/"
+Issues = "https://github.com/barto-official/model-gateway/issues"
 
 
 [dependency-groups]
@@ -66,7 +66,7 @@ wheel-exclude = ["tests/**"]
 #if using setuptools
 #[tool.setuptools]
 #package-dir = {"" = "src"}
-#packages = ["my_package"] if you want manual package discovery
+#packages = ["model_gateway"] if you want manual package discovery
 #[tool.setuptools.packages.find]
 #where = ["src"]
 
@@ -121,7 +121,7 @@ exclude_commit_patterns = [
 # RUFF CONFIGURATION
 ################################################################################
 [tool.ruff]
-target-version = "py311"
+target-version = "py312"
 line-length = 100
 src = ["src", "tests"]
 
@@ -134,7 +134,7 @@ exclude = [
     "dist",
     "docs/_build",
     "docs/examples",
-    "src/my_package_cli",
+    "src/model_gateway_cli",
 ]
 
 
@@ -261,7 +261,7 @@ skip-magic-trailing-comma = false
 docstring-code-format = true
 
 [tool.ruff.lint.isort]
-known-first-party = ["my_package"]
+known-first-party = ["model_gateway", "model_gateway_cli"]
 
 [tool.mdformat]
 wrap = 100

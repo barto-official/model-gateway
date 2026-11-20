@@ -19,7 +19,7 @@ REFERENCE = Path("reference/api")
 
 # default fallback
 DEFAULT_CONFIG: dict[str, Any] = {
-    "packages": ["my_package"],
+    "packages": ["model_gateway"],
     "public_only": True,
     "exclude": [],
 }

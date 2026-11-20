@@ -1,5 +1,5 @@
 blank_issues_enabled: true
 contact_links:
   - name: Documentation
-    url: https://github.com/barto-official/python-project-template/tree/main/docs
+    url: https://github.com/barto-official/model-gateway/tree/main/docs
     about: Before opening a new issue, please make sure to read Documentation and CONTRIBUTING.md

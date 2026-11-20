@@ -87,7 +87,7 @@ def slugify(text: str, *, max_length: int = 64) -> str:
     return out[:max_length].strip("-")
 
 
-def chunked(items: Sequence[T], size: int) -> list[list[T]]:
+def chunked[T](items: Sequence[T], size: int) -> list[list[T]]:
     """Split a sequence into fixed-size chunks.
 
     Args:
@@ -110,7 +110,7 @@ def chunked(items: Sequence[T], size: int) -> list[list[T]]:
     return [list(items[i : i + size]) for i in range(0, len(items), size)]
 
 
-def merge_maps(*maps: Mapping[K, V], conflict: str = "right") -> dict[K, V]:
+def merge_maps[K, V](*maps: Mapping[K, V], conflict: str = "right") -> dict[K, V]:
     """Merge multiple mappings into one dict.
 
     Args:

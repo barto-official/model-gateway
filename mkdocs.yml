@@ -1,8 +1,8 @@
-site_name: Your Package
-site_description: Project documentation
-site_url: https://barto-official.github.io/python-project-template/
-repo_url: "https://github.com/barto-official/python-project-template"
-repo_name: "YOUR_REPO"
+site_name: Model Gateway
+site_description: Internal documentation for the Model Gateway service and Python package.
+site_url: https://barto-official.github.io/model-gateway/
+repo_url: "https://github.com/barto-official/model-gateway"
+repo_name: "model-gateway"
 edit_uri: edit/main/docs/
 
 exclude_docs: |
@@ -84,13 +84,13 @@ extra:
   api_reference:
     # Top-level packages under src/ to document (one page per module).
     packages:
-      - my_package
+      - model_gateway
     # When true: skip modules with private path segments (_name), hide _ members,
     # and hide symbols without docstrings. Set false to document everything found.
     public_only: false
     # CLI is documented via docs/reference/cli.md (generate_cli_reference.py), not here.
     exclude:
-      - "re:my_package\\.cli(\\..*)?$"
+      - "re:model_gateway\\.cli(\\..*)?$"
 
 plugins:
   - search                     # Enables MkDocs built-in full-text search

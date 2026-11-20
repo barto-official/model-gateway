@@ -6,7 +6,7 @@ Overwrites ``docs/reference/cli.md`` with Typer-generated Markdown.
 Usage::
 
     python scripts/generate_cli_reference.py my_cli_package
-    python scripts/generate_cli_reference.py my_cli_package --name my_package
+    python scripts/generate_cli_reference.py my_cli_package --name model_gateway
 """
 
 from __future__ import annotations
@@ -60,7 +60,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "package",
-        help="Python package name, e.g. my_package (loads {package}.cli.app).",
+        help="Python package name, e.g. model_gateway (loads {package}.cli.app).",
     )
     parser.add_argument(
         "--name",

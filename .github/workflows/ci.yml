@@ -55,7 +55,7 @@ jobs:
 
       - name: Run mypy
         run: |
-          uv run mypy src/{MY_PACKAGE}
+          uv run mypy src/model_gateway
 
   package-build:
     runs-on: ubuntu-latest
@@ -174,15 +174,15 @@ jobs:
 
       - name: Smoke test import
         run: |
-          .smoke-venv/bin/python -c "import {MY_PACKAGE}"
+          .smoke-venv/bin/python -c "import model_gateway"
 
       - name: Smoke test installed metadata
         run: |
-          .smoke-venv/bin/python -c "from importlib.metadata import version; print(version('my-package'))"
+          .smoke-venv/bin/python -c "from importlib.metadata import version; print(version('model-gateway'))"
 
       - name: Smoke test basic public API
         run: |
-          .smoke-venv/bin/python -c "import {MY_PACKAGE}; print(getattr({MY_PACKAGE}, '__version__', 'no __version__ attribute'))"
+          .smoke-venv/bin/python -c "import model_gateway; print(getattr(model_gateway, '__version__', 'no __version__ attribute'))"
 
   sdist-smoke-test:
     runs-on: ubuntu-latest
@@ -226,15 +226,15 @@ jobs:
 
       - name: Smoke test import from sdist install
         run: |
-          .sdist-venv/bin/python -c "import {MY_PACKAGE}"
+          .sdist-venv/bin/python -c "import model_gateway"
 
       - name: Smoke test installed metadata from sdist install
         run: |
-          .sdist-venv/bin/python -c "from importlib.metadata import version; print(version('my-package'))"
+          .sdist-venv/bin/python -c "from importlib.metadata import version; print(version('model-gateway'))"
 
       - name: Show import location
         run: |
-          .sdist-venv/bin/python -c "import {MY_PACKAGE}; print({MY_PACKAGE}.__file__)"
+          .sdist-venv/bin/python -c "import model_gateway; print(model_gateway.__file__)"
 
   editable-install-smoke-test:
     runs-on: ubuntu-latest
@@ -260,15 +260,15 @@ jobs:
 
       - name: Smoke test editable import
         run: |
-          .editable-venv/bin/python -c "import {MY_PACKAGE}"
+          .editable-venv/bin/python -c "import model_gateway"
 
       - name: Smoke test editable installed metadata
         run: |
-          .editable-venv/bin/python -c "from importlib.metadata import version; print(version('my-package'))"
+          .editable-venv/bin/python -c "from importlib.metadata import version; print(version('model-gateway'))"
 
       - name: Show editable import location
         run: |
-          .editable-venv/bin/python -c "import {MY_PACKAGE}; print({MY_PACKAGE}.__file__)"
+          .editable-venv/bin/python -c "import model_gateway; print(model_gateway.__file__)"
 
   docs-build:
     runs-on: ubuntu-latest
@@ -296,7 +296,7 @@ jobs:
 
           uv sync --frozen --group docs
 
-          uv run python scripts/generate_cli_reference.py {MY_PACKAGE} --check
+          uv run python scripts/generate_cli_reference.py model_gateway --check
 
           uv run python scripts/generate_index.py
 
