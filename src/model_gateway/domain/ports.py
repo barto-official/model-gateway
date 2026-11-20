@@ -15,11 +15,7 @@ class InferenceBackend(Protocol):
 
     On success, ``generate`` returns a :class:`~model_gateway.domain.generation.GenerationResponse`.
     On failure, implementations raise a :class:`~model_gateway.domain.errors.GatewayError`
-    subclass (for example :class:`~model_gateway.domain.errors.InvalidRequestError`,
-    :class:`~model_gateway.domain.errors.UpstreamError`,
-    :class:`~model_gateway.domain.errors.TimeoutError`, or
-    :class:`~model_gateway.domain.errors.CancelledError`). Streaming is not part of this
-    contract.
+    Streaming is not part of this contract.
     """
 
     @property
