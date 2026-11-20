@@ -1,18 +1,32 @@
 # AGENTS.md
 
-## Project Context
+## Tech stack
 
-- Project type: Python package (API + CLI)
-- Python: 3.12+
-- Package and environment management: `uv`. Never edit `uv.lock` by
-hand.
-- Tests: `pytest`
-- Linting and formatting: `ruff`
-- Type checking: `ty`
-- Pre-commit checks: `prek`
-- CI: GitHub Actions
+- Python 3.12+
+- FastAPI
+- Pydantic v2
+- HTTPX
+- asyncio
+- uv
+- pytest
+- Ruff
+- ty
 
-Use the repository's existing configuration as the source of truth. Do not introduce parallel tooling, duplicate configuration, or alternative workflows without a clear reason.
+## Architecture
+
+Modular monolith with hexagonal architecture (ports and adapters). One deployable API process. The CLI is a second entrypoint over the same package.
+
+`domain` and `application` do not import FastAPI, the provider SDKs, or the YAML loader. Adapters and `bootstrap.py` import inward.
+
+# CICD
+- Github Actions
+- Conventional Commits and Branches
+
+# Model Providers:
+- OpenAI
+- Claude
+- Google
+
 
 ## Domain Knowledge & Reference
 
