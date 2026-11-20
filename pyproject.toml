@@ -237,3 +237,6 @@ known-first-party = ["model_gateway", "model_gateway_cli"]
 [tool.mdformat]
 wrap = 100
 number = true
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
