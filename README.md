@@ -85,10 +85,17 @@ Configuration is loaded from environment variables, `model_gateway.toml` in the 
 ```text
 model-gateway/
 ├── src/
-│   ├── model_gateway/       # Library
-│   └── model_gateway_cli/   # CLI entrypoints and adapter
-├── docs/                    # MkDocs source
-├── scripts/                 # Doc generation and repo policy
+│   ├── model_gateway/              # Library (hexagonal layout)
+│   │   ├── bootstrap.py            # Composition root
+│   │   ├── domain/                 # Models, errors, ports
+│   │   ├── application/            # Use cases and routing
+│   │   ├── adapters/
+│   │   │   ├── inbound/http/       # FastAPI and SSE (later phases)
+│   │   │   └── outbound/config/    # Env and registry loading
+│   │   └── hello.py                # Quickstart doctest helper
+│   └── model_gateway_cli/          # CLI entrypoints and adapter
+├── docs/                           # MkDocs source
+├── scripts/                        # Doc generation and repo policy
 ├── tests/
 └── pyproject.toml
 ```
