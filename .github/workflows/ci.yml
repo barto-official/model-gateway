@@ -63,7 +63,7 @@ jobs:
 
           uv sync --frozen --group docs
 
-          uv run python scripts/generate_cli_reference.py model_gateway --check
+          uv run python scripts/generate_cli_reference.py model_gateway --name model-gateway --check
 
           uv run python scripts/generate_index.py
 

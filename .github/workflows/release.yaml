@@ -101,7 +101,7 @@ jobs:
           uv sync --frozen --group docs --group dev
           VERSION="${{ steps.released.outputs.version }}"
           RELEASE_IS_PRE="$(uv run python -c 'import packaging.version as pv; print(str(pv.Version("'"${VERSION}"'").is_prerelease).lower())')"
-          uv run python scripts/generate_cli_reference.py model_gateway
+          uv run python scripts/generate_cli_reference.py model_gateway --name model-gateway
           uv run python scripts/generate_index.py
           uv run mkdocs build --strict
           if [ "$RELEASE_IS_PRE" = "true" ]; then
