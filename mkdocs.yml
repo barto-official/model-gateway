@@ -7,9 +7,7 @@ edit_uri: edit/main/docs/
 
 exclude_docs: |
   architecture/adr/README.md
-  architecture/adr/template.md
   rfc/README.md
-  rfc/template.md
 
 theme:
   palette:
