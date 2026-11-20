@@ -39,15 +39,15 @@ Identify 2–4 credible implementation strategies. Do not manufacture alternativ
 
 Goal: create a table with alternative implementations. For each possible strategy, gather:
     * Name
-    * descritpion
+    * description
     * trade-offs
 
 
 
 
-4. For each strategy resarch on relevant techniques/patterns. Gather: name, description, code sample, trade-off.
+4. For each strategy research relevant techniques/patterns. Gather: name, description, code sample, trade-off.
 
-5. For each techniques/patterns resarch on relevant candidate libraries/tools. Gather: name, description, code sample, trade-off.
+5. For each technique/pattern research relevant candidate libraries/tools. Gather: name, description, code sample, trade-off.
 
 
 Final output — table with:

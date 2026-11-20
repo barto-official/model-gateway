@@ -6,7 +6,7 @@ This project build a model gateway.
 
 Two most important rules for this project:
 1. This project should follow modern best practices of AI Engineering, Software Engineering and Software Architecture.
-2. Whenever code is implemented or decision is made, check what possibilities existist and whcih fullfil the point no.1.
+2. Whenever code is implemented or decision is made, check what possibilities exist and which fulfill the point no.1.
 
 
 Code should follow CLean Code and Architecture should follow best practices.

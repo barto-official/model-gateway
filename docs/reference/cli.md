@@ -5,7 +5,7 @@ Print a short acknowledgement (smoke-test friendly).
 **Usage**:
 
 ```console
-$ model-gateway [OPTIONS]
+$ model-gateway [OPTIONS] COMMAND [ARGS]...
 ```
 
 **Options**:
