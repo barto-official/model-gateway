@@ -9,10 +9,14 @@ exclude = [
     "http://localhost",
     "http://127\\.0\\.0\\.1",
     "https://your-docs-site",
+    # site_url hosts; Pages may be empty until Mike deploys on release.
+    "https://barto-official\\.github\\.io/model-gateway",
+    # mkdocstrings "view source" links resolve under docs/src until handler paths are tuned.
+    "https://github\\.com/barto-official/model-gateway/raw/main/docs/src/",
 ]
 
 exclude_path = [
-    "^\\.venv/",
+  "^\\.venv/",
 ]
 
 header = { "accept" = "*/*" }

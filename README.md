@@ -27,7 +27,7 @@ Model Gateway centralizes how backend services call external model APIs. It prov
 - Python 3.12+ package layout (`src/model_gateway`)
 - Typer CLI with generated reference in MkDocs
 - Configuration via env vars and TOML (`model_gateway.toml`)
-- Pre-commit, Ruff, mypy, and pytest in CI
+- prek, Ruff, ty, and pytest in CI
 - Semantic versioning and release workflows
 
 ## Tech stack
@@ -37,7 +37,7 @@ Model Gateway centralizes how backend services call external model APIs. It prov
 - **Config:** Pydantic Settings (scaffold)
 - **Docs:** MkDocs Material
 - **CI/CD:** GitHub Actions
-- **Tooling:** `uv`, Ruff, mypy, pytest
+- **Tooling:** `uv`, Ruff, ty, pytest
 
 ## Getting started
 
@@ -59,7 +59,7 @@ uv sync --dev
 ```bash
 uv run pytest -q
 uv run ruff check .
-uv run mypy src/model_gateway
+uv run ty check src/model_gateway
 ```
 
 ### CLI (development)

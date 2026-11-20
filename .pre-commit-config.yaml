@@ -29,7 +29,9 @@ repos:
     rev: v4.6.0
     hooks:
       - id: trailing-whitespace
+        exclude: ^(\.cursor/|cursor_settings/|vs_code_settings/)
       - id: end-of-file-fixer
+        exclude: ^(\.cursor/|cursor_settings/|vs_code_settings/)
       - id: check-merge-conflict
       - id: check-yaml
       - id: check-toml
@@ -49,7 +51,8 @@ repos:
     rev: 1.0.0
     hooks:
       - id: mdformat
-        exclude: ^(CONTRIBUTING\.md|docs/reference/cli\.md|docs/architecture/adr/index\.md|docs/rfc/index\.md)$
+        files: ^(docs/|README\.md)
+        exclude: ^(docs/reference/cli\.md|docs/architecture/adr/index\.md|docs/rfc/index\.md)$
         additional_dependencies:
           - mdformat-gfm==1.0.0
 

@@ -3,6 +3,7 @@
 
 Phases are sequential in intent; some work can overlap within a phase (e.g. three provider adapters in parallel once contracts exist). **Exit criteria** state what “done” means before moving on. Capability tables above remain the source of truth for scope; this section orders delivery.
 
+
 ## Phase 0 — Repository foundation
 
 **Goals:** Runnable API shell, configuration model, internal domain contracts and the provider port (not OpenAI-shaped), CI unchanged.
@@ -24,7 +25,7 @@ Package layout and the dependency rule are defined in `.cursor/project_setup.md`
 
 ---
 
-## Phase 1 — Internal provider layer (SDK adapters)
+## Phase 1 — Internal provider layer (SDK adapters): (!: Deffered, see @agents.md)
 
 **Goals:** Three outbound adapters behind the `InferenceBackend` port. SDK imports stay inside `adapters/outbound/{openai,anthropic,google}`. No public unified route yet except optionally a dev-only invoke.
 
@@ -196,44 +197,3 @@ If you want an early demonstrator before completing all of Phase 2:
 2. Single `POST /v1/chat` with canonical schema (Phase 2 subset).
 3. Phase 3 streaming for OpenAI only.
 4. Expand to Anthropic and Google before locking public API versioning.
-
----
-
-## Dependency graph (high level)
-
-```mermaid
-flowchart LR
-  P0[Phase 0 Foundation]
-  P1[Phase 1 SDK adapters]
-  P2[Phase 2 Unified API]
-  P3[Phase 3 Streaming]
-  P4[Phase 4 Capabilities]
-  P5[Phase 5 Reliability]
-  P6[Phase 6 Routing]
-  P7[Phase 7 Observability]
-  P8[Phase 8 Advanced]
-  P9[Phase 9 Auth]
-
-  P0 --> P1 --> P2 --> P3
-  P2 --> P4
-  P3 --> P5
-  P4 --> P5
-  P5 --> P6 --> P7
-  P7 --> P9
-  P4 --> P8
-  P6 --> P8
-  P8 --> P9
-```
-
-## Open decisions (discuss before Phase 2 freeze)
-
-| Topic | Options | Recommendation |
-| --- | --- | --- |
-| Public API shape | Native canonical JSON first vs OpenAI-compatible façade | Canonical internal schema first; optional OpenAI-compatible route as adapter on top (aligns with Domain 1 note). |
-| Registry storage | YAML in repo vs database | YAML for Phases 2–6; persistence store when admin API needs writes. |
-| First provider in slice | OpenAI first vs three in parallel | OpenAI first for fastest SDK/streaming proof; parallel once `Provider` port is frozen. |
-| Auth interim | Network policy only vs shared secret header | Shared secret header optional in Phase 2–8 without full key management (lighter than Phase 9). |
-
-Track resolutions in this section as decisions are made.
-
-

@@ -34,13 +34,12 @@ Issues = "https://github.com/barto-official/model-gateway/issues"
 [dependency-groups]
 dev = [
     "ruff>=0.6",
-    "mypy>=1.10",
     "pytest>=8.2",
     "codespell>=2.3",
-    "pre-commit>4.0",
     "pytest-markdown-docs>=0.9.2",
-    "python-semantic-release>=9.21.1",
-    "uvicorn[standard]>=0.54.0",
+    "ty>=0.0.107",
+    "prek>=0.5.11",
+    "commitizen>=4.19.4",
 ]
 docs = [
     "mkdocs>=1.6",
@@ -82,43 +81,11 @@ name = "cz_conventional_commits"
 version_provider = "pep621"
 version_scheme = "pep440"
 tag_format = "v$version"
-update_changelog_on_bump = false
-
-################################################################################
-# Semantic Release CONFIGURATION
-################################################################################
-[tool.semantic_release]
-version_toml = ["pyproject.toml:project.version"]
-commit_parser = "conventional"
-tag_format = "v{version}"
-allow_zero_version = true
-major_on_zero = false
-commit_version_number = true
+version_files = ["pyproject.toml:project.version"]
 changelog_file = "CHANGELOG.md"
-build_command = """
-uv lock
-git add uv.lock
-"""
-
-[tool.semantic_release.branches.main]
-match = "main"
-prerelease = false
-
-[tool.semantic_release.commit_parser_options]
-minor_tags = ["feat"]
-patch_tags = ["fix", "perf"]
-
-[tool.semantic_release.changelog]
-exclude_commit_patterns = [
-    '''docs(?:\\([^)]*?\\))?: .+''',
-    '''test(?:\\([^)]*?\\))?: .+''',
-    '''chore(?:\\([^)]*?\\))?: .+''',
-    '''ci(?:\\([^)]*?\\))?: .+''',
-    '''build(?:\\([^)]*?\\))?: .+''',
-    '''style(?:\\([^)]*?\\))?: .+''',
-    '''refactor(?:\\([^)]*?\\))?: .+''',
-    '''Initial [Cc]ommit.*''',
-]
+update_changelog_on_bump = true
+annotated_tag = true
+bump_message = "chore(release): bump version to $new_version"
 
 ################################################################################
 # RUFF CONFIGURATION
@@ -132,6 +99,7 @@ exclude = [
     ".venv",
     "venv",
     ".mypy_cache",
+    ".ty_cache",
     ".ruff_cache",
     "build",
     "dist",
@@ -269,3 +237,6 @@ known-first-party = ["model_gateway", "model_gateway_cli"]
 [tool.mdformat]
 wrap = 100
 number = true
+
+[tool.pytest.ini_options]
+pythonpath = ["."]

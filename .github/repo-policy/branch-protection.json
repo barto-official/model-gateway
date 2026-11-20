@@ -3,7 +3,8 @@
     "strict": true,
     "contexts": [
       "CodeQL",
-      "CI"
+      "CI",
+      "CI ty / type-check"
     ]
   },
   "enforce_admins": false,

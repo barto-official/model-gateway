@@ -1,5 +1,12 @@
 # AGENTS.md
 
+## Roadmap
+
+For full roadmap go to .cursor/roadmap.md. Important:
+* The roadmap should focus on supporting OpenAI models and API, SDK. Only when the project is stable we add other providers.
+* API calls should be async.
+* Focus on text. Multimedia, files, tool calling, agents are postponed.
+
 ## Tech stack
 
 - Python 3.12+
@@ -124,7 +131,7 @@ For commits, use conventional commits.
 * Description of the commit should be a maximum of 2 bullet points.
 * In description, do not mention internal agent conversations; describe the customer-relevant change.
 
-Branch changes will be delivered as Pull Request. Pull Requests SHOULD stay below 500 lines. This rule is not hardcoded but notify if this treshold will be crossed and propose how to split changes.
+Branch changes will be delivered as Pull Request. Pull Requests SHOULD stay below 500 lines. This rule is not hardcoded but notify if this threshold will be crossed and propose how to split changes.
 
 
 ## Secrets and Sensitive Data
