@@ -274,8 +274,8 @@ The commit contains the following structural elements, to communicate intent to 
 * BREAKING CHANGE: a commit that has a footer BREAKING CHANGE:, or appends a ! after the type/scope, introduces a breaking API change (correlating with MAJOR in Semantic Versioning). A BREAKING CHANGE can be part of commits of any type.
 * types other than fix: and feat: are allowed, for example: chore:, ci:, docs:, style:, refactor:, perf:, test:, and others.
 * footers other than BREAKING CHANGE: <description> may be provided and follow a convention similar to git trailer format.
-* **Version bumps** match `[tool.semantic_release]` in `pyproject.toml` (parser: **`conventional`**; `[tool.semantic_release.commit_parser_options]`): **`feat`** → **minor**; **`fix`** and **`perf`** → **patch**; a **breaking change** (`BREAKING CHANGE:` footer or **`!`** after the type or scope, for example `feat!:` or `chore(api)!:`) → **major**. Any other valid conventional type only bumps the version if it includes a breaking change.
-* **Changelog**: commits listed in `[tool.semantic_release.changelog] exclude_commit_patterns` are left out of `CHANGELOG.md`—currently typical prefixes **`docs`**, **`test`**, **`chore`**, **`ci`**, **`build`**, **`style`**, and **`refactor`**, plus messages matching **`Initial commit`**. Use those types when the change should not appear in release notes
+* **Version bumps** follow Commitizen’s `cz_conventional_commits` rules (`[tool.commitizen]` in `pyproject.toml`): **`feat`** → **minor**; **`fix`** and **`perf`** → **patch**; a **breaking change** (`BREAKING CHANGE:` footer or **`!`** after the type or scope, for example `feat!:` or `chore(api)!:`) → **major**. Other conventional types only bump the version when they include a breaking change.
+* **Changelog**: `cz bump` updates `CHANGELOG.md` on release. Use types such as **`docs`**, **`test`**, **`chore`**, **`ci`**, **`build`**, **`style`**, and **`refactor`** when the change should not drive a version bump.
 
 ### General guidance
 
@@ -295,15 +295,13 @@ The commit contains the following structural elements, to communicate intent to 
 
 Pull requests and pushes to `main` must pass CI. Before you push, run the same checks locally:
 
-* **Pre-commit** — Ruff (lint + format), Markdown checks, spelling, YAML/TOML sanity, ADR/RFC index regeneration, and commit-message validation (after you install the hook). We use **commitizen** to check whether commit message follows conventional commits.
-  * First time: `uv sync --group dev --group docs`, then `pre-commit install` and `pre-commit install --hook-type commit-msg` and `pre-commit install --hook-type commit-msg`.
-  * Every run: `uv run pre-commit run --all-files`.
+* **prek** — Ruff (lint + format), Markdown checks, spelling, YAML/TOML sanity, ADR/RFC index regeneration, and commit-message validation (after you install the hook). We use **Commitizen** to check whether commit messages follow conventional commits.
+  * First time: `uv sync --group dev --group docs`, then `prek install` and `prek install --hook-type commit-msg`.
+  * Every run: `uv run prek run --all-files`.
 
 * **Tests** — `uv sync --group dev` then `uv run pytest --markdown-docs docs tests` (CI runs this on Python 3.12 and 3.13).
 
-* **Type checking** — `uv sync --group dev` then `uv run mypy src/model_gateway`.
-
-* **Package build** — `rm -rf dist build *.egg-info && uv build` then `uv run --with twine==6.1.0 twine check --strict dist/*`.
+* **Type checking** — `uv sync --group dev` then `uv run ty check src/model_gateway`.
 
 * **Docs site** — Match the docs CI job: sync docs deps, regenerate CLI reference and indexes, then build (set `DISABLE_MKDOCS_2_WARNING=true` if CI does).
   * `uv sync --group docs`
@@ -336,13 +334,13 @@ Documentation, apart from  `README.md`, is authored with [Material MkDocs](https
   uv sync --group docs
   uv run mkdocs serve
   ```
-- Index for ADRs or RFC files is implemented by `python scripts/generate_index.py` (see `adr-index` in CI and the pre-commit hook).
+- Index for ADRs or RFC files is implemented by `python scripts/generate_index.py` (see `adr-index` in CI and the prek hook).
 
 - **Reference for CLI** is implemented using Typer docs utility in the script `uv run python scripts/generate_cli_reference.py model_gateway` (assumes structure: `model_gateway.cli.app`).
 
 - Static checks include:
   - `mdformat` (for settings see [pyproject.toml](./pyproject.toml))
-  - [`pymarkdown` (PyPI: `pymarkdownlnt`)](https://pypi.org/project/pymarkdownlnt/) with settings in `.pymarkdown.yaml`. Run `uv run pre-commit run --all-files`.
+  - [`pymarkdown` (PyPI: `pymarkdownlnt`)](https://pypi.org/project/pymarkdownlnt/) with settings in `.pymarkdown.yaml`. Run `uv run prek run --all-files`.
   - `codespell` (`.codespellrc`)
   - MkDocs `--strict` (Building the docs site with “no warnings allowed” so small config/content problems break CI)
   - Lychee (`.lychee.toml`) in CI checks internal links offline (`docs/`, `README.md`, built `site/`) and runs a full network pass on those roots.
@@ -362,7 +360,7 @@ Documentation, apart from  `README.md`, is authored with [Material MkDocs](https
 
 ### Hosted documentation and versions
 
-Releases rebuild and publish MkDocs outputs with **Mike → `gh-pages`** (same workflow that publishes wheels). Canonical
+Releases rebuild and publish MkDocs outputs with **Mike → `gh-pages`** (in the release workflow). Canonical
 URLs come from `site_url` in `mkdocs.yml` (`https://barto-official.github.io/model-gateway/` today). Material’s
 Mike integration (`extra.version.provider: mike`) exposes `stable`, `latest`, and per-version selectors.
 
@@ -384,11 +382,11 @@ Mike integration (`extra.version.provider: mike`) exposes `stable`, `latest`, an
 
 **Build backend and commands**
 
-Packaging uses uv's build backend. Use `uv build` locally and in automation. On release, **semantic-release** runs `uv lock` and commits the lockfile so installs reflect declared dependencies.
+The project uses uv for dependency sync and editable installs (`uv sync`). **Commitizen** manages semver releases.
 
 **Versioning policy**
 
-Commit messages follow conventional commits. **python-semantic-release** reads that history, updates **`project.version`** in `pyproject.toml`, updates **`CHANGELOG.md`**, and tags **`v{version}`**. When it evaluates commits since the last release, it applies the **largest** bump implied by any of them (for example one `feat` and several `fix` commits still produce a **minor** release).
+Commit messages follow conventional commits. **`cz bump`** (in CI on `main` or locally) updates **`project.version`** in `pyproject.toml`, **`CHANGELOG.md`**, and creates an annotated git tag **`v{version}`**. It applies the largest bump implied by commits since the last tag (for example one `feat` and several `fix` commits still produce a **minor** release).
 
 * **Patch** — **`fix:`** (bugs) and **`perf:`** (performance).
 * **Minor** — **`feat:`** (new behavior users can rely on).
@@ -399,14 +397,14 @@ Follow **[Commit Message Guidelines](#commit-message-guidelines)** in this docum
 
 **Dependency policy**
 
-Only **`[project]`** dependencies are installed for people who use the published package. Other groups include:
+Runtime dependencies live in **`[project]`**. Other groups include:
 
-* **`dev`** — Linting, tests, git hooks, and release helpers: Ruff, mypy, pytest, pytest-markdown-docs, pre-commit, codespell,python-semantic-release.
+* **`dev`** — Linting, tests, git hooks, and release helpers: Ruff, ty, pytest, pytest-markdown-docs, prek, codespell, Commitizen.
 * **`docs`** — The MkDocs / Material site, API docs plugins, mike, mdformat, pymarkdownlnt, packaging, and related doc-only packages.
 
 **Publishing policy**
 
-PyPI updates only from the **release** workflow when the version actually changes, via **Trusted Publishing (OIDC)**. Docs deploy with Mike to `gh-pages` in the same pass, with aliases that treat stable vs prerelease.
+Application artifacts are not published to PyPI. The **release** workflow creates a **GitHub Release** for each new tag and deploys docs with Mike to `gh-pages`, with aliases that treat stable vs prerelease.
 
 ## CI/CD and release
 
@@ -417,18 +415,18 @@ Automation lives under `.github/workflows/`; keep README/CONTRIBUTING notes alig
 - Installs reproducible tooling with `uv` (`astral-sh/setup-uv`).
 - `tests`: `uv sync --frozen --group dev` then `pytest`including tests on python snippets in documentation across Python `3.12`: `uv run pytest --markdown-docs docs tests on Python 3.12 and 3.13`
   & `3.13`.
-- `type-check`: `mypy` on `src/model_gateway`.
-- Packaging + smoke jobs (`package-build`, `artifact-smoke-test`, `sdist-smoke-test`, `editable-install-smoke-test`) run
-  `uv build`, `twine check --strict`, wheel/sdist installs, and editable installs using the canonical import name
-  `model_gateway` with distribution metadata `model-gateway`.
+
+### Type checking (`ci_ty.yaml`)
+
+- `type-check`: `uv sync --frozen --group dev` then `ty check` on `src/model_gateway` (Python 3.12).
+- `editable-install-smoke-test`: verifies editable install and `import model_gateway` in a clean venv.
 - Documentation + Markdown quality jobs were described earlier (`docs-build`, `link-check-*`).
-- `pre-commit`: mirrors local hooks (`uv sync --frozen --group dev --group docs` + `pre-commit run --all-files`).
+- `prek`: mirrors local hooks (`uv sync --frozen --group dev --group docs` + `prek run --all-files`).
 
 ### Release workflow (`release.yaml`)
 
-- Runs on pushes to `main` (manual `workflow_dispatch` included) with Trusted Publisher credentials for PyPI.
-- `semantic-release` (configured via `[tool.semantic_release]` in `pyproject.toml`) bumps `project.version`, rebuilds artefacts,
-  and publishes distributions when the semantic version changes.
+- Runs on pushes to `main` (manual `workflow_dispatch` included); skips when the head commit is already `chore(release):`.
+- **Commitizen** (`cz bump`) bumps `project.version`, updates `CHANGELOG.md`, creates tag `v{version}`, pushes commit and tags, and opens a **GitHub Release** with generated notes.
 - The same guarded step syncs docs dependencies, regenerates tracked Markdown outputs (`generate_cli_reference.py`,
   `generate_index.py`), runs `mkdocs build --strict`, and executes `uv run mike deploy --push` with aliases `latest` plus
   `stable` only for non-prerelease builds (determined via `packaging.version.Version.is_prerelease`).

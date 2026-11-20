@@ -152,7 +152,7 @@ The uploaded document contains two tables.
 
 # Prioritization
 
-*This list may not include all capabilities. Source of truth is capabilities talbe*
+*This list may not include all capabilities. Source of truth is capabilities table*
 
 ### **Domain 1 — Provider integration**
 
