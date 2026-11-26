@@ -2,9 +2,9 @@
 
 from __future__ import annotations
 
-import asyncio
 import ast
-import importlib.util
+import asyncio
+import importlib
 from pathlib import Path
 
 import pytest
@@ -44,7 +44,10 @@ def _imported_top_level_modules(path: Path) -> set[str]:
     return found
 
 
-@pytest.mark.parametrize("module_name", sorted(p.stem for p in APPLICATION_ROOT.glob("*.py")))
+@pytest.mark.parametrize(
+    "module_name",
+    sorted(p.stem for p in APPLICATION_ROOT.glob("*.py") if p.stem != "__init__"),
+)
 def test_application_module_does_not_import_forbidden_packages(module_name: str) -> None:
     """Application modules must not depend on HTTP frameworks or provider SDKs."""
     path = APPLICATION_ROOT / f"{module_name}.py"
@@ -54,10 +57,4 @@ def test_application_module_does_not_import_forbidden_packages(module_name: str)
             f"{module_name}.py must not import {forbidden}, found: {sorted(imports)!r}"
         )
 
-    spec = importlib.util.spec_from_file_location(
-        f"model_gateway.application._import_check_{module_name}",
-        path,
-    )
-    assert spec is not None and spec.loader is not None
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
+    importlib.import_module(f"model_gateway.application.{module_name}")

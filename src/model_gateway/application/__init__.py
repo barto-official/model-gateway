@@ -1,6 +1,11 @@
 """Application layer: use cases, routing, and execution policy."""
 
 from model_gateway.application.generate_text import GenerateTextUseCase
+from model_gateway.application.model_resolution import (
+    PreparedGeneration,
+    TextGenerationCall,
+    prepare_text_generation,
+)
 from model_gateway.application.registry import (
     ALLOWED_REGISTRY_PROVIDERS,
     ModelCapabilities,
@@ -20,8 +25,11 @@ __all__ = [
     "ModelLimits",
     "ModelRegistry",
     "ModelRegistryDocument",
+    "PreparedGeneration",
     "RegistryModelEntry",
     "RegistryProvider",
     "RegistryValidationError",
+    "TextGenerationCall",
+    "prepare_text_generation",
     "validate_registry_policy",
 ]

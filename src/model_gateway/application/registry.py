@@ -74,7 +74,14 @@ class ModelRegistryDocument(Schema):
 
     @model_validator(mode="after")
     def unique_provider_and_id(self) -> Self:
-        """Ensure (provider, id) pairs are unique within the file."""
+        """Ensure (provider, id) pairs are unique within the file.
+
+        Returns:
+            The validated document.
+
+        Raises:
+            ValueError: When two rows share the same provider and id.
+        """
         seen: set[tuple[str, str]] = set()
         for entry in self.models:
             key = (entry.provider.value, entry.id)
