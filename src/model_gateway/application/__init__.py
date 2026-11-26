@@ -1,6 +1,8 @@
 """Application layer: use cases, routing, and execution policy."""
 
+from model_gateway.application.backend_registry import InferenceBackendRegistry
 from model_gateway.application.generate_text import GenerateTextUseCase
+from model_gateway.application.generate_via_registry import GenerateViaRegistryUseCase
 from model_gateway.application.model_resolution import (
     PreparedGeneration,
     TextGenerationCall,
@@ -21,6 +23,8 @@ from model_gateway.application.registry import (
 __all__ = [
     "ALLOWED_REGISTRY_PROVIDERS",
     "GenerateTextUseCase",
+    "GenerateViaRegistryUseCase",
+    "InferenceBackendRegistry",
     "ModelCapabilities",
     "ModelLimits",
     "ModelRegistry",
