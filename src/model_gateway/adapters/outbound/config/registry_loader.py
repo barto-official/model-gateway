@@ -5,12 +5,10 @@ from __future__ import annotations
 from pathlib import Path
 
 import yaml
-from pydantic import ValidationError
 
 from model_gateway.application.registry import (
     ModelRegistry,
     ModelRegistryDocument,
-    RegistryValidationError,
     validate_registry_policy,
 )
 
@@ -22,6 +20,9 @@ class RegistryLoadError(Exception):
 def load_model_registry(path: Path) -> ModelRegistry:
     """Read a registry YAML file and return an indexed :class:`ModelRegistry`.
 
+    Schema failures surface as Pydantic ``ValidationError`` and policy failures as
+    ``RegistryValidationError``; both propagate from validation unchanged.
+
     Args:
         path: Filesystem path to the registry document.
 
@@ -29,9 +30,7 @@ def load_model_registry(path: Path) -> ModelRegistry:
         In-memory registry ready for resolution by provider and id.
 
     Raises:
-        RegistryLoadError: When the file is missing, unreadable, or not valid YAML.
-        ValidationError: When the document fails structural validation.
-        RegistryValidationError: When configured providers are not enabled.
+        RegistryLoadError: When the file is missing, unreadable, empty, or not valid YAML.
     """
     if not path.is_file():
         msg = f"registry file not found: {path}"

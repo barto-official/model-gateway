@@ -10,7 +10,6 @@ from pydantic import ValidationError
 from model_gateway.adapters.outbound.config import load_model_registry
 from model_gateway.adapters.outbound.config.registry_loader import RegistryLoadError
 
-
 REPO_ROOT = Path(__file__).resolve().parents[3]
 DEFAULT_REGISTRY = REPO_ROOT / "config" / "models.yaml"
 
