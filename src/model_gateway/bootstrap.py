@@ -1,10 +1,25 @@
 """Composition root: wire adapters to ports."""
 
+from __future__ import annotations
 
-def create_app() -> None:
+from typing import TYPE_CHECKING
+
+from model_gateway.adapters.inbound.http.app import create_http_app
+from model_gateway.adapters.outbound.config import GatewaySettings, load_settings
+
+if TYPE_CHECKING:
+    from fastapi import FastAPI
+
+
+def create_app(settings: GatewaySettings | None = None) -> FastAPI:
     """Create and configure the HTTP application.
 
-    Raises:
-        NotImplementedError: When the inbound HTTP adapter is not yet wired.
+    Args:
+        settings: Optional pre-loaded settings; when omitted, values are read
+            from the environment.
+
+    Returns:
+        Configured FastAPI application.
     """
-    raise NotImplementedError("HTTP application is not configured yet")
+    resolved = settings if settings is not None else load_settings()
+    return create_http_app(resolved)

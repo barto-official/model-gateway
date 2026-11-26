@@ -16,6 +16,7 @@ dependencies = [
     "httpx>=0.28.1",
     "platformdirs>=4.9.6",
     "pydantic>=2.13.4",
+    "pydantic-settings>=2.16.3",
     "typer>=0.25.1",
 ]
 classifiers = [
@@ -40,6 +41,7 @@ dev = [
     "ty>=0.0.107",
     "prek>=0.5.11",
     "commitizen>=4.19.4",
+    "uvicorn>=0.54.0",
 ]
 docs = [
     "mkdocs>=1.6",
@@ -237,3 +239,6 @@ known-first-party = ["model_gateway", "model_gateway_cli"]
 [tool.mdformat]
 wrap = 100
 number = true
+
+[tool.pytest.ini_options]
+pythonpath = ["."]

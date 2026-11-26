@@ -1,5 +1,12 @@
 # AGENTS.md
 
+## Roadmap
+
+For full roadmap go to .cursor/roadmap.md. Important:
+* The roadmap should focus on supporting OpenAI models and API, SDK. Only when the project is stable we add other providers.
+* API calls should be async.
+* Focus on text. Multimedia, files, tool calling, agents are postponed.
+
 ## Tech stack
 
 - Python 3.12+

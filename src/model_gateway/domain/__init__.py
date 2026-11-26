@@ -17,6 +17,7 @@ from model_gateway.domain.generation import (
     ResponseRefusal,
     TokenUsage,
 )
+from model_gateway.domain.ports import InferenceBackend
 from model_gateway.domain.schema import Schema
 
 __all__ = [
@@ -27,6 +28,7 @@ __all__ = [
     "GenerationResponse",
     "GenerationStatus",
     "IncompleteReason",
+    "InferenceBackend",
     "InputMessage",
     "InvalidRequestError",
     "ResponseRefusal",

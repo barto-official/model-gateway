@@ -234,9 +234,10 @@ pytest
 Exercise the public helper API (runs as part of markdown doc tests in CI):
 
 ```python
-from model_gateway.hello import add
+from model_gateway.domain import InputMessage
 
-assert add(2, 3) == 5
+msg = InputMessage(role="user", content="hello")
+assert msg.content == "hello"
 ```
 
 Build the package:
