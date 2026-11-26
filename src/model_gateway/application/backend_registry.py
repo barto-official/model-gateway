@@ -42,3 +42,10 @@ class InferenceBackendRegistry:
     def configured_providers(self) -> frozenset[str]:
         """Return provider slugs that currently have a backend."""
         return frozenset(self._backends)
+
+    async def aclose_all(self) -> None:
+        """Close backends that expose an async ``aclose`` hook (for example OpenAI)."""
+        for backend in self._backends.values():
+            close = getattr(backend, "aclose", None)
+            if close is not None:
+                await close()
