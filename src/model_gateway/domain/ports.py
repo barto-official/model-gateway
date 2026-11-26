@@ -36,6 +36,8 @@ class InferenceBackend(Protocol):
             InvalidRequestError: When the request cannot be sent as given.
             UpstreamError: When the provider fails or returns an unusable response.
             TimeoutError: When the call exceeds its deadline.
-            CancelledError: When the call is cancelled before completion.
+            CancelledError: When the provider reports that generation was cancelled.
+                Task cancellation propagates as ``asyncio.CancelledError`` and is not
+                translated into this error.
         """
         ...

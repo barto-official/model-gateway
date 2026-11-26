@@ -20,6 +20,7 @@ HEXAGONAL_PACKAGES = (
     "model_gateway.adapters.inbound.http",
     "model_gateway.adapters.outbound",
     "model_gateway.adapters.outbound.config",
+    "model_gateway.adapters.outbound.openai",
 )
 
 
