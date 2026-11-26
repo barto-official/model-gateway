@@ -1,0 +1,79 @@
+# Static model registry (schema_version 1). Loaded from MODEL_GATEWAY_REGISTRY__PATH.
+# Clients reference a row by ``provider`` + ``id`` on the unified generation API.
+schema_version: 1
+models:
+  - id: gpt-4o-mini
+    provider: openai
+    upstream_model: gpt-4o-mini
+    display_name: GPT-4o mini
+    description: Cost-efficient multimodal model; text generation supported by the gateway.
+    capabilities:
+      text_generation: true
+      multi_turn_conversation: true
+      system_instructions: true
+      streaming: true
+      tool_calling: true
+      structured_json_output: true
+      vision: true
+      extended_reasoning: false
+      audio_input: false
+      audio_output: false
+      embeddings: false
+      batch_inference: true
+      realtime: false
+    limits:
+      context_window_tokens: 128000
+      max_output_tokens: 16384
+    tags:
+      - chat
+      - vision
+  - id: gpt-4o
+    provider: openai
+    upstream_model: gpt-4o
+    display_name: GPT-4o
+    description: General-purpose multimodal frontier model.
+    capabilities:
+      text_generation: true
+      multi_turn_conversation: true
+      system_instructions: true
+      streaming: true
+      tool_calling: true
+      structured_json_output: true
+      vision: true
+      extended_reasoning: false
+      audio_input: false
+      audio_output: false
+      embeddings: false
+      batch_inference: true
+      realtime: false
+    limits:
+      context_window_tokens: 128000
+      max_output_tokens: 16384
+    tags:
+      - chat
+      - vision
+  - id: o3-mini
+    provider: openai
+    upstream_model: o3-mini
+    display_name: o3-mini
+    description: Reasoning model with extended thinking; text-only inputs via Responses API.
+    capabilities:
+      text_generation: true
+      multi_turn_conversation: true
+      system_instructions: true
+      streaming: true
+      tool_calling: true
+      structured_json_output: true
+      vision: false
+      extended_reasoning: true
+      audio_input: false
+      audio_output: false
+      embeddings: false
+      batch_inference: true
+      realtime: false
+    limits:
+      context_window_tokens: 200000
+      max_output_tokens: 100000
+    tags:
+      - reasoning
+      - chat

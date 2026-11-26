@@ -58,7 +58,7 @@ Package layout and the dependency rule are defined in `.cursor/project_setup.md`
 | Generation parameters with cross-provider translation | Parameter translation P0 |
 | Normalized stop reasons | Inference P0 |
 
-**Exit criteria:** Same client payload can target OpenAI, Anthropic, or Google by changing registry model id; errors and successes share one response schema.
+**Exit criteria:** Same client payload can target OpenAI, Anthropic, or Google by changing registry model id; errors and successes share one response schema. (EDIT: we use only OpenAI)
 
 **Out of scope:** Model aliases, automatic failover, consumer API keys.
 

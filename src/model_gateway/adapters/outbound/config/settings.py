@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from enum import StrEnum
+from pathlib import Path
 
 from pydantic import BaseModel, ConfigDict, Field, SecretStr, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -25,6 +26,14 @@ class HttpSettings(BaseModel):
 
     host: str = "0.0.0.0"
     port: int = Field(default=8000, ge=1, le=65535)
+
+
+class RegistrySettings(BaseModel):
+    """Static model registry file location."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    path: Path = Path("config/models.yaml")
 
 
 class OpenAISettings(BaseModel):
@@ -52,6 +61,7 @@ class GatewaySettings(BaseSettings):
     environment: str = "development"
     log_level: LogLevel = LogLevel.INFO
     http: HttpSettings = Field(default_factory=HttpSettings)
+    registry: RegistrySettings = Field(default_factory=RegistrySettings)
     openai: OpenAISettings = Field(default_factory=OpenAISettings)
 
     @field_validator("environment")
