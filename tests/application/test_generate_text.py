@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import asyncio
+import ast
 import importlib.util
 from pathlib import Path
 
@@ -31,13 +32,27 @@ def test_generate_text_use_case_delegates_to_backend() -> None:
     assert backend.name == "test-double"
 
 
+def _imported_top_level_modules(path: Path) -> set[str]:
+    tree = ast.parse(path.read_text(encoding="utf-8"))
+    found: set[str] = set()
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Import):
+            for alias in node.names:
+                found.add(alias.name.split(".", maxsplit=1)[0])
+        elif isinstance(node, ast.ImportFrom) and node.module is not None:
+            found.add(node.module.split(".", maxsplit=1)[0])
+    return found
+
+
 @pytest.mark.parametrize("module_name", sorted(p.stem for p in APPLICATION_ROOT.glob("*.py")))
 def test_application_module_does_not_import_forbidden_packages(module_name: str) -> None:
     """Application modules must not depend on HTTP frameworks or provider SDKs."""
     path = APPLICATION_ROOT / f"{module_name}.py"
-    source = path.read_text(encoding="utf-8")
+    imports = _imported_top_level_modules(path)
     for forbidden in FORBIDDEN_APPLICATION_IMPORTS:
-        assert forbidden not in source, f"{module_name}.py must not reference {forbidden}"
+        assert forbidden not in imports, (
+            f"{module_name}.py must not import {forbidden}, found: {sorted(imports)!r}"
+        )
 
     spec = importlib.util.spec_from_file_location(
         f"model_gateway.application._import_check_{module_name}",
