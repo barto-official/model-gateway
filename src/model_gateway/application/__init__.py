@@ -19,9 +19,11 @@ from model_gateway.application.registry import (
     RegistryValidationError,
     validate_registry_policy,
 )
+from model_gateway.application.runtime import GatewayRuntime
 
 __all__ = [
     "ALLOWED_REGISTRY_PROVIDERS",
+    "GatewayRuntime",
     "GenerateTextUseCase",
     "GenerateViaRegistryUseCase",
     "InferenceBackendRegistry",

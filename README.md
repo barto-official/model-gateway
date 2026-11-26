@@ -68,6 +68,17 @@ uv run ty check src/model_gateway
 uv run python -m model_gateway_cli
 ```
 
+### HTTP API (development)
+
+```bash
+export MODEL_GATEWAY_OPENAI__API_KEY=sk-...  # optional; /health works without it
+uv run uvicorn model_gateway.bootstrap:create_app --factory --reload
+```
+
+- `GET /health` — liveness
+- `POST /v1/generations` — text generation (`provider`, `model` registry id, `input` messages)
+- Model catalog: `config/models.yaml` (override with `MODEL_GATEWAY_REGISTRY__PATH`)
+
 See [CONTRIBUTING.md](CONTRIBUTING.md) for the full quality gate and docs workflow.
 
 ## Configuration
